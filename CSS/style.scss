@@ -1,0 +1,267 @@
+// Se usará un tipo de letra diferente a la que se usa por default, será "poppins", se usa @import y entre comillas dobles la dirección de dónde están las fuentes que se quieren usar, en este caso se importa una fuente de google apis
+@import "https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap";
+// Se le da formato a toda la página con *
+* {
+  // Se quita margenes
+  margin: 0;
+  // Se quita rellenos
+  padding: 0;
+  // Se le dice al navegador tomar en cuenta para cualquier valor que se especifique de borde o de relleno para el ancho o alto de un elemento. Es decir, si se define un elemento con un ancho de 100 pixeles. Esos 100 pixeles incluíran cualquier borde o relleno que se añadan, y la caja de contenido se encogerá para absorber ese ancho extra. Esto típicamente hace mucho más fácil dimensionar elementos.
+  // En resumen con border.box todas las medidas que se darán serán exactas.
+  box-sizing: border-box;
+  // Se agrega la fuente que se ocuipará de la api de google, se añade entre comillas simples y en caso que no encuentre ese tipo de letra, se pone otra.
+  font-family: "Poppins", sans-serif;
+}
+
+// Se da estilos al body
+body {
+  // Se le da un color de fondo
+  background: #3d4152;
+}
+
+// Ahora, se le da estilo a la clase de navigation, que es el div principal
+.navigation {
+  // Se fija su posición, es decir, no se quiere que se mueva de su posición actual, es decir la varra de navegación se tendrá fija en la parte izquierda
+  position: fixed;
+  // La propiedad "inset" es una nueva propiedad de CSS que se utiliza para definir los valores de las propiedades "top", "right", "bottom" y "left" de una sola vez. Esta propiedad es especialmente útil para definir la posición de elementos fijos o absolutos en la página. Sería 20 en top, 0 en buttom, y 20 en right y left
+  inset: 20px 0 20px 20px;
+  // Se define un ancho
+  width: 75px;
+  // Se da un color de fondo
+  background: #fff;
+  // Se le da una transición para efectuar los cambios en ese tiempo
+  transition: 0.5s;
+  // Se le dice que a sus hijos sean flexibles, es decir, para que se puedan centrar
+  display: flex;
+  // Ahora, se justifica su contenido de izquierda a derecha, en el centro
+  justify-content: center;
+  // Ahora de arriba a abajo
+  align-items: center;
+  // Se le da un borde curvo
+  border-radius: 15px;
+  // Ahora se da estilos al hijo de navigation, que es la barra de menuToggle
+  .menuToggle {
+    // Se le dirá que busque su padre inmediato, es decir, que sea absoluta su posición
+    position: absolute;
+    // En la posición de arriba se deja fijo
+    top: 0;
+    // Y que también esté fijo a la izquierda
+    left: 0;
+    // El ancho será el 100% de su padre contenedor
+    width: 100%;
+    // Se le da una altura
+    height: 60px;
+    // Se le da un borde a la parte de abajo
+    border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+    // Se le da cursor de tipo puntero al pasar el mouse
+    cursor: pointer;
+    // Se le dice que su organizacón de sus hijos será flexible
+    display: flex;
+    // Ahora se centran esos hijos de arriba y abajo
+    align-items: center;
+    // Ahora se posicionan al inicio esos hijos de izquierda y derecha
+    justify-content: flex-start;
+    // Se le da un relleno para que no esté pegado a la parte izquierda
+    padding: 0 23px;
+
+    // Para vizualizarlo se usa un decorador interno, que estará "antes de"
+    &::before {
+      // Siempre debe tener un contenedor, en este caso, está vacío
+      content: "";
+      // Su posición será deacuerdo a su padre inmediato, es decir, igual, absoluta
+      position: absolute;
+      // Se define un ancho y un alto
+      width: 30px;
+      height: 2px;
+      // Se le da un color de fondo
+      background: #333;
+      // Se le pone un transform porque se va a trasladar
+      transform: translateY(-8px);
+      // Se le da una transición suave
+      transition: 0.5s;
+    }
+    // Para vizualizarlo se usa un decorador interno, que estará "después de"
+    &::after {
+      // Siempre debe tener un contenedor, en este caso, está vacío
+      content: "";
+      // Su posición será deacuerdo a su padre inmediato, es decir, igual, absoluta
+      position: absolute;
+      // Se define un ancho y un alto
+      width: 30px;
+      height: 2px;
+      // Se le da un color de fondo
+      background: #333;
+      // Se le pone un transform porque se va a trasladar pero hacia abajo
+      transform: translateY(8px);
+      // Se le da una transición suave para la animación
+      transition: 0.5s;
+      // Se le da una sombra, para que de ese aspecto de 3 rayitas
+      box-shadow: 0 -8px 0 #333;
+    }
+  }
+  // Se le da estilos a la lista
+  ul {
+    // Sus hijos serán flexibles
+    display: flex;
+    // En cuanto a la dirección, se le dirá que irá en columnas, es decir, de izq a der
+    flex-direction: column;
+    // Se le da una pequwña brecha para separar los elementos
+    gap: 10px;
+    // En el ancho se le dice que se adapte al 100% de su padre
+    width: 100%;
+    //Ahora se le da estilo a los hijos, es decir, los items que están dentro de la lista
+    li {
+      // Primero se le quita los puntitos que aparecen por default cuando es una lista no ordenada
+      list-style-type: none;
+      // La posición se le dice que sea relativa a su padre
+      position: relative;
+      // El ancho se le dice que sea el 100% de su contenedor
+      height: 60px;
+      // Se le da un relleno de izq a der de unos 10px
+      padding: 0 10px;
+      // Como los elementos se van a trasladar con el padding se le da una transición suave
+      transition: 0.5s;
+      // Se le da el cambio de color a los items con el "active", con este se podrá saber en cual de los items está la propiedad de seleccionar, entonces se accede a la multiclase con &.active{}
+      &.active {
+        // Se le dice que se traslade a la derecha en la coordenada en X
+        transform: translate(
+          30px
+        ); //Esto hace que se traslade el primer ícono solamente, ya que así se estableció en el html, por eso mismo se usa "active" ya que este estáa en el primer item por default.
+
+        //Entonces, cuando se esté en la etiqueta de link "a"
+        a {
+          // Se ingresará a el span con clase "icon
+          .icon {
+            // Se le da color al ícono
+            color: #fff;
+            // Para su fondo de color, se le pasa la variable definida en html
+            background: var(--clr);
+            // Se le pone un pequeño decorador antes de
+            &::before {
+              // Se le da una opacidad al decorador
+              opacity: 0.5;
+            }
+          }
+          // Ahora, se ingresa a su otro hijo, que es text, que es el span con nombre home
+          .text {
+            // El color lo tomará de acuerdo a la variable establecida en html
+            color: var(--clr);
+          }
+        }
+      }
+      // Se le continua dando estilos a los links, pero cuando no están activos, es decir, los demás
+      a {
+        // Se le dice que la posición sea relativa a su padre
+        position: relative;
+        // Se le dice que su display sea flexible
+        display: flex;
+        // Se le dice que sus items de arriba a abajo estén en el centro
+        align-items: center;
+        // Se le dice que sus items de izq a der que estén al inicio
+        justify-content: flex-start;
+        // En caso de que no se halla centrado, también se centra el texto
+        text-align: center;
+        // Ahora se le quita la rayita que viene por default en los links
+        text-decoration: none;
+        // Ahora se ingresa al ícono a darle estilos
+        .icon {
+          // Se le da posición relativa a los íconos
+          position: relative;
+          // Se le dice que el displaay se comporte como bloques para poderle dar radio a los bordes
+          display: block;
+          // Se le da un ancho y alto mínimo para que sea como un cuadrado
+          min-width: 55px;
+          height: 55px;
+          // Se ajusta la altira de la línea para que esté en el centro
+          line-height: 60px;
+          // Se le da una transición
+          transition: 0.5s;
+          // Se le da bordes curvados
+          border-radius: 10px;
+          // En cuanto al tamaño del ícono, se estable aquí con font.size, ya que se comporta como si fuera un texto.
+
+          // En CSS, la propiedad "em" se refiere a una unidad de medida relativa que se basa en el tamaño de la fuente actual. Un "em" es igual a la altura de la letra "M" en la fuente actual.
+
+          // Por ejemplo, si la fuente actual es de 16 píxeles, entonces 1em sería igual a 16 píxeles. Si la fuente aumenta a 20 píxeles, entonces 1em sería igual a 20 píxeles.
+          font-size: 1.75em;
+          // Se le da color a los íconos
+          color: #222;
+          // Se agrega un decorador al ícono antes de
+          &::before {
+            // Siempre se pone el content
+            content: "";
+            // Se le dice que su posición sea absoluta
+            position: absolute;
+            // Se le dice que en la parte de arriba baje
+            top: 10px;
+            // Y en left se posiciona en 0
+            left: 0px;
+            // Se define un ancho y alto cuadrado y que tome el 100% de su padre
+            width: 100%;
+            height: 100%;
+            // Para su fondo, se le dice que tome los valores de los colores que se estableció en el html
+            background: var(--clr);
+            // Se le da un filtro para difuminar el color
+            filter: blur(8px);
+            // Se le dice al decorador que al inicio tenga una opacidad de 0
+            opacity: 0;
+            // Cuando se active se volverá a pasar a opacidad de 1, y esto ocurrirá en una transición
+            transition: 0.5s;
+          }
+        }
+        // Se accede a text donde están las palabras escritas
+        .text {
+          // Se le da posición relativa
+          position: relative;
+          // Se le da un relleno de izq y der
+          padding: 0 15px;
+          // Se le da una altura
+          height: 60px;
+          // Se le dice que el display sea flexible
+          display: flex;
+          // Siendo flexible ya se puede centrar de arriba a abajo
+          align-items: center;
+          // Se le da color a la letra
+          color: #333;
+          // Al inicio el texto dessaparecerá, es decir, tendrá opacidad 0
+          opacity: 0;
+          // En casoo de que la opacidad no sea suficiente, se oculta
+          visibility: hidden;
+          // Y esto anterior ocurrirá con una transición suave
+          transition: 0.5s;
+        }
+      }
+    }
+  }
+  // Se agrega el último elemento de navigation, que será el "open" implementado para JS. No reconoce la clase porque no existe en HTML, pero este es el open que se crea a través de JS, el cual se va a estar mapeando.
+  // Cuando estemos dentro de esta clase que ha sido creada a través de JS, el .open, se quiere que en el ".menuToggle" en cuanto a su decorador "::before{}"
+  // Esto pasará cuando se le haga click en la nueva clase "open", que será la raita de la parte de arriba, es decir, la primera de las 3 raitas.
+  &.open .menuToggle::before {
+    // Se quiere que haga una pequeña transformación, que se traaslade 0px en Y y que haga una pequeña rotación de 45°
+    transform: translateY(0px) rotate(45deg);
+  }
+  // Ahora, se le pide que cuando haga otra vez "open", se le va pedir que:
+  &.open {
+    // EL ancho de la navegación, que viene a ser toda la parte blanca, es decir la de "navigation", en resumen, cuando se active el open también se quiere que se haga grande, esto hará que la barra se expanda en su ancho.
+    width: 250px;
+  }
+  // Ahora, se ingresa a la propiedad del "after", que es el decorador que se agrega después de, es decir, la rayita que está en la parte de abajo, la última de las 3, ya que la de en medio es una sombra.
+  &.open .menuToggle::after {
+    // Se le dice que haga el mismo transform que en before, pero con -45°
+    transform: translateY(0px) rotate(-45deg);
+    // Y el box shadow, que es la raya de enmedio, se va a desaparecer, esto hará que se forme una X con las configuraciones que se le dió al before y after.
+    box-shadow: 0 0 0 #333;
+  }
+  // Se le da la activación a los elementos restantes usando open, y dentro de la lista no ordenada "ul", se accede a sus items "li" se busca el .active
+  &.open ul li.active {
+    // Se aplica una transformación y se pide que se traslade en la coordeada en X 10px, y se trasladará hacia la izquierda
+    transform: translateX(10px);
+  }
+  // Se vuelve a acceder a la clase creada en JS, se accede a su lista y a sus elementos de la lista y se accede a los links, que son los que rodean a la imagen y también al texto, se accede a su texto.
+  &.open ul li a .text {
+    // En los estilos de la lista, anteriormente se le había dado opacidad de 0 y se había ocultado su visibilidad al .text, en este caso, se le pasa la opacidad a 1 y que se pueda vizualizar, para mostrarla.
+    // De esta manera al dar clic en las 3 varras se verá el texto.
+    opacity: 1;
+    visibility: visible;
+  }
+}
